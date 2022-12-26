@@ -30,3 +30,11 @@ AS BEGIN
 UPDATE AddressBookADO SET City=@City,State=@State WHERE FirstName=@FirstName
 END
 
+--Deleting data from AddressBook Database
+CREATE PROCEDURE SPDeleteDataFromDB(
+@FirstName VARCHAR(30)
+)
+AS BEGIN
+DELETE FROM AddressBookADO WHERE FirstName=@FirstName
+END
+
