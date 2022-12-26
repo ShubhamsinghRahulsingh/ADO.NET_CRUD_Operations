@@ -46,5 +46,49 @@ namespace CRUD_StoredProcedures.AddressBookProblem
                 Console.WriteLine(ex.Message);
             }
         }
+        public void RetrieveEntriesFromAddressBookDB()
+        {
+            SqlConnection sqlconnection = new SqlConnection(connectionString);
+            try
+            {
+                List<Contact> contact = new List<Contact>();
+                using (sqlconnection)
+                {
+                    sqlconnection.Open();
+                    SqlCommand command = new SqlCommand("SPRetrieveAllDetails", sqlconnection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader dr = command.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            Contact contactNew = new Contact();
+                            contactNew.FirstName = dr.GetString(0);
+                            contactNew.LastName = dr.GetString(1);
+                            contactNew.Address = dr.GetString(2);
+                            contactNew.City = dr.GetString(3);
+                            contactNew.State = dr.GetString(4);
+                            contactNew.Zip = dr.GetInt32(5);
+                            contactNew.PhoneNUmber = dr.GetInt64(6);
+                            contactNew.Email = dr.GetString(7);
+                            contact.Add(contactNew);
+                        }
+                        foreach (var data in contact)
+                        {
+                            Console.WriteLine("Firstame:" + data.FirstName + "  " + "LastName:" + data.LastName + "  " + "Address:" + data.Address + "  " + "City:" + data.City + "  " + "State:" + data.State + "  " + "ZIP:" + data.Zip + "  " + "PhoneNo:" + data.PhoneNUmber + "  " + "Email:" + data.Email);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Database Found");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // handle exception here
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

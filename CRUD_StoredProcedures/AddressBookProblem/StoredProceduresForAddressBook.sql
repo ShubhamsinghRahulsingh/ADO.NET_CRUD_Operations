@@ -14,3 +14,9 @@ INSERT INTO AddressBookADO(FirstName,LastName,Address,City,State,ZIP,PhoneNumber
 VALUES(@FirstName,@LastName,@Address,@City,@State,@ZIP,@PhoneNumber,@Email)
 END
 
+--Retrieving All Details From AddressBook
+CREATE PROCEDURE SPRetrieveAllDetails
+AS BEGIN 
+SELECT * FROM AddressBookADO
+END
+
