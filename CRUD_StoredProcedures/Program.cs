@@ -23,7 +23,7 @@ namespace CRUD_StoredProcedures
             while (flag)
             {
                 Console.WriteLine("------------------------------------------------------");
-                Console.WriteLine("Select Any Operations From the Following\n1.Add_New_Data_in_AddressBook_Databse\n2.Retrieve_Entries_From_AddressBookDB\n3.Exit");
+                Console.WriteLine("Select Any Operations From the Following\n1.Add_New_Data_in_AddressBook_Databse\n2.Retrieve_Entries_From_AddressBookDB\n3.Update_Data_In_Database\n4.Exit");
                 int sel = Convert.ToInt32(Console.ReadLine());
                 switch (sel)
                 {
@@ -34,6 +34,15 @@ namespace CRUD_StoredProcedures
                         addressBook.RetrieveEntriesFromAddressBookDB();
                         break;
                     case 3:
+                        Contact update = new Contact
+                        {
+                            FirstName="Shubham",
+                            City="Dehradun",
+                            State="UK"
+                        };
+                        addressBook.UpdateDataInDatabase(update);
+                        break;
+                    case 4:
                         flag = false;
                         break;                 
                 }

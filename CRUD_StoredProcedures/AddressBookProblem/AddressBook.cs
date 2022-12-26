@@ -90,5 +90,34 @@ namespace CRUD_StoredProcedures.AddressBookProblem
                 Console.WriteLine(ex.Message);
             }
         }
+        public void UpdateDataInDatabase(Contact contact)
+        {
+            SqlConnection sqlconnection = new SqlConnection(connectionString);
+            try
+            {
+                using (sqlconnection)
+                {
+                    sqlconnection.Open();
+                    SqlCommand command = new SqlCommand("SPUpdateDataInDB", sqlconnection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FirstName", contact.FirstName);
+                    command.Parameters.AddWithValue("@City", contact.City);
+                    command.Parameters.AddWithValue("@State", contact.State);
+                    int result = command.ExecuteNonQuery();
+                    sqlconnection.Close();
+                    if (result >= 1)
+                    {
+                        Console.WriteLine("Contact Updated Successfully");
+                    }
+                    else
+                        Console.WriteLine("No DataBase found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // handle exception here
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
